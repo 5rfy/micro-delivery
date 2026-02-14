@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package delivery;
+option go_package = "github.com/yourorg/microservices/proto/delivery";
+
+service DeliveryService {
+  rpc CreateDelivery (CreateDeliveryRequest) returns (CreateDeliveryResponse);
+  rpc GetDeliveryStatus (GetDeliveryStatusRequest) returns (GetDeliveryStatusResponse);
+}
+
+message CreateDeliveryRequest {
+  string order_id = 1;
+  string user_id = 2;
+  string delivery_address = 3;
+}
+
+message CreateDeliveryResponse {
+  string delivery_id = 1;
+  string tracking_number = 2;
+  string status = 3;
+  string estimated_delivery = 4;
+}
+
+message GetDeliveryStatusRequest {
+  string order_id = 1;
+}
+
+message GetDeliveryStatusResponse {
+  string order_id = 1;
+  string delivery_id = 2;
+  string status = 3;  // PENDING, IN_TRANSIT, DELIVERED, FAILED
+  string tracking_number = 4;
+  string estimated_delivery = 5;
+  string current_location = 6;
+}

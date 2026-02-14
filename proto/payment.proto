@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package payment;
+option go_package = "github.com/yourorg/microservices/proto/payment";
+
+service PaymentService {
+  rpc ProcessPayment (ProcessPaymentRequest) returns (ProcessPaymentResponse);
+  rpc GetPaymentStatus (GetPaymentStatusRequest) returns (GetPaymentStatusResponse);
+}
+
+message ProcessPaymentRequest {
+  string order_id = 1;
+  string user_id = 2;
+  double amount = 3;
+  string currency = 4;
+}
+
+message ProcessPaymentResponse {
+  string payment_id = 1;
+  string status = 2;  // SUCCESS, FAILED, INSUFFICIENT_FUNDS
+  string message = 3;
+}
+
+message GetPaymentStatusRequest {
+  string order_id = 1;
+}
+
+message GetPaymentStatusResponse {
+  string order_id = 1;
+  string payment_id = 2;
+  string status = 3;
+  double amount = 4;
+  string paid_at = 5;
+}
