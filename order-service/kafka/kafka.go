@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/IBM/sarama"
+	"main.go/structs"
 )
 
 const (
@@ -44,14 +45,8 @@ func (h *ConsumerGroupHandler) ConsumeClaim(session sarama.ConsumerGroupSession,
 	return nil
 }
 
-type PaymentCompletedEvent struct {
-	OrderId   string `json:"order_id"`
-	Status    string `json:"status"`
-	PaymentId string `json:"payment_id"`
-}
-
 func (h *ConsumerGroupHandler) handlePaymentCompleted(data []byte) {
-	var event PaymentCompletedEvent
+	var event structs.PaymentCompletedEvent
 	if err := json.Unmarshal(data, &event); err != nil {
 		log.Printf("Failed to unmarshal event: %v", err)
 		return
@@ -74,15 +69,8 @@ func (h *ConsumerGroupHandler) handlePaymentCompleted(data []byte) {
 	log.Printf("Order %s completed successfully", event.OrderId)
 }
 
-type DeliveryStatusEvent struct {
-	OrderId        string `json:"order_id"`
-	Status         string `json:"status"`
-	TrackingNumber string `json:"tracking_number"`
-	EstimatedDate  string `json:"estimated_delivery"`
-}
-
 func (h *ConsumerGroupHandler) handleDeliveryUpdated(data []byte) {
-	var event DeliveryStatusEvent
+	var event structs.DeliveryStatusEvent
 	if err := json.Unmarshal(data, &event); err != nil {
 		log.Printf("Failed to unmarshal event: %v", err)
 		return
