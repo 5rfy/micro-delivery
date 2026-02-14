@@ -20,3 +20,16 @@ type OrderItem struct {
 	Quantity  int32           `json:"quantity"`
 	Price     decimal.Decimal `json:"price"`
 }
+
+type PaymentCompletedEvent struct {
+	OrderId   string `json:"order_id"`
+	Status    string `json:"status"`
+	PaymentId string `json:"payment_id"`
+}
+
+type DeliveryStatusEvent struct {
+	OrderId        string `json:"order_id"`
+	Status         string `json:"status"`
+	TrackingNumber string `json:"tracking_number"`
+	EstimatedDate  string `json:"estimated_delivery"`
+}
