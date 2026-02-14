@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"log"
+	"time"
 )
 
 func InitDb(dsn string) *sql.DB {
@@ -11,8 +12,12 @@ func InitDb(dsn string) *sql.DB {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
-	if err := db.Ping(); err != nil {
-		log.Fatalf("Failed to ping database: %v", err)
+	for i := 0; i < 10; i++ {
+		if err := db.Ping(); err == nil {
+			break
+		}
+		log.Printf("Waiting for DB... %d/10", i+1)
+		time.Sleep(3 * time.Second)
 	}
 
 	migrations := []string{
