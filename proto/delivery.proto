@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package delivery;
-option go_package = "github.com/yourorg/microservices/proto/delivery";
+option go_package = "micro-delivery/proto/delivery";
 
 service DeliveryService {
   rpc CreateDelivery (CreateDeliveryRequest) returns (CreateDeliveryResponse);

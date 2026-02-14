@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package order;
-option go_package = "github.com/yourorg/microservices/proto/order";
+option go_package = "micro-delivery/proto/order";
 
 service OrderService {
   rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
